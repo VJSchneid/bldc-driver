@@ -1,6 +1,7 @@
 #pragma once
 
 #include <utility>
+#include <functional>
 
 namespace positionSensor {
 
@@ -19,8 +20,21 @@ namespace positionSensor {
             position = std::move(newPosition);
         }
 
-    protected:
+        void setMovementCallback(std::function<void (int)> callback) {
+            movementCallback = callback;
+        }
 
+    protected:
+        inline void movePosition(int move) {
+            position += move;
+            if (movementCallback) {
+                movementCallback(move);
+            }
+        }
+
+    private:
         PositionType position;
+
+        std::function<void (int)> movementCallback;
     };
 }

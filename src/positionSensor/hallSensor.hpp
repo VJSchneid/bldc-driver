@@ -60,7 +60,7 @@ namespace positionSensor {
             const int newPos = getMovementPosition(move);
             if(movePattern[newPos] == capture) {
                 movePatternPosition = newPos;
-                PositionSensor<PositionType>::position += move;
+                PositionSensor<PositionType>::movePosition(move);
                 return true;
             }
             return false;
